@@ -1,5 +1,6 @@
 import math
 import random
+import textwrap
 from datetime import datetime
 
 import streamlit as st
@@ -61,7 +62,12 @@ def init_state() -> None:
 
 init_state()
 
-st.markdown(
+
+def render_html(html: str) -> None:
+    st.markdown(textwrap.dedent(html).strip(), unsafe_allow_html=True)
+
+
+render_html(
     """
     <style>
     .main {
@@ -161,7 +167,6 @@ st.markdown(
     }
     </style>
     """,
-    unsafe_allow_html=True,
 )
 
 
@@ -265,7 +270,7 @@ def calculate_results() -> None:
     st.session_state.purged_count = purged
 
 
-st.markdown(
+render_html(
     """
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
         <div>
@@ -277,7 +282,6 @@ st.markdown(
         </div>
     </div>
     """,
-    unsafe_allow_html=True,
 )
 
 with st.sidebar:
@@ -341,7 +345,7 @@ with st.sidebar:
         st.session_state.interest_rate,
         st.session_state.loan_years,
     )
-    st.markdown(
+    render_html(
         f"""
         <div class="panel-box">
             <div style="color:#60a5fa;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;">財務預估摘要</div>
@@ -355,7 +359,6 @@ with st.sidebar:
             </div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
     st.markdown("---")
@@ -384,27 +387,25 @@ results = st.session_state.results
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown(
+    render_html(
         f"""
         <div class="metric-card">
             <div class="metric-label">Strategic Budget Peak</div>
             <div class="metric-value">{results['maxBudget'] / 10000:.0f}<span style="color:#60a5fa;font-size:24px;margin-left:6px;">萬</span></div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 with col2:
-    st.markdown(
+    render_html(
         f"""
         <div class="metric-card">
             <div class="metric-label">Target Coverage</div>
             <div class="metric-value" style="color:#34d399;">{results['affordablePings']:.1f}<span style="color:#64748b;font-size:24px;margin-left:6px;">坪</span></div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
-st.markdown(
+render_html(
     f"""
     <div style="margin-top:22px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
         <div>
@@ -414,7 +415,6 @@ st.markdown(
         <div style="color:#34d399;font-size:12px;font-weight:800;">地區：{st.session_state.selected_city}／{st.session_state.selected_district}</div>
     </div>
     """,
-    unsafe_allow_html=True,
 )
 
 for idx, listing in enumerate(results["listings"], start=1):
@@ -423,7 +423,7 @@ for idx, listing in enumerate(results["listings"], start=1):
     if listing["nimby"]:
         nimby_html = f'<div class="warn">核心抗性：鄰近 {listing["nimby"]["label"]}</div>'
 
-    st.markdown(
+    render_html(
         f"""
         <div class="listing-card">
             <div style="display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;">
@@ -474,7 +474,6 @@ for idx, listing in enumerate(results["listings"], start=1):
             </div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
-st.markdown('<div class="footer-note">© 2026 TAIWAN REAL ESTATE ENGINE • STABLE PRO</div>', unsafe_allow_html=True)
+render_html('<div class="footer-note">© 2026 TAIWAN REAL ESTATE ENGINE • STABLE PRO</div>')
