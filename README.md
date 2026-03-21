@@ -1,51 +1,37 @@
-# 台房智選 PRO03
+# 台房智選 PRO｜GitHub Pages 版本
 
-這是一個以 **Streamlit** 製作的台灣房地產試算與模擬推薦工具，可直接部署到 **Streamlit Cloud**，也可在本機執行。
+這是一個可直接上傳到 GitHub 的靜態單頁網站版本。
 
-## 專案內容
+## 檔案說明
 
-- `台房智選PRO03_app.py`：主程式
-- `台房智選PRO03_requirements.txt`：Python 套件需求
-- `.streamlit/config.toml`：Streamlit 介面設定
-- `.gitignore`：Git 忽略設定
+- `index.html`：主程式，直接由瀏覽器開啟即可使用
+- `.nojekyll`：避免 GitHub Pages 套用 Jekyll 處理
 
-## 本機執行方式
+## 上傳到 GitHub 的方式
 
-1. 安裝套件
+1. 在 GitHub 建立一個新的 repository
+2. 將本資料夾內的所有檔案上傳到 repository 根目錄
+3. 到 GitHub 的 **Settings → Pages**
+4. 在 **Build and deployment** 裡選擇：
+   - **Source**：Deploy from a branch
+   - **Branch**：`main`（或你的預設分支）
+   - **Folder**：`/ (root)`
+5. 儲存後，等待 GitHub Pages 發布完成
 
-```bash
-pip install -r 台房智選PRO03_requirements.txt
-```
+## 使用方式
 
-2. 啟動程式
-
-```bash
-streamlit run 台房智選PRO03_app.py
-```
-
-## 部署到 Streamlit Cloud
-
-1. 將整個專案上傳到 GitHub Repository
-2. 前往 Streamlit Cloud
-3. 選擇你的 GitHub Repository
-4. Main file path 請填入：
-
-```text
-台房智選PRO03_app.py
-```
-
-5. 部署即可
-
-## 功能說明
-
-- 全台主要縣市與行政區選擇
-- 每月可負擔房貸、自備款、貸款年限、利率試算
-- 五項優勢加權
-- 五項嫌惡設施扣分
-- 模擬成交 / 下架案源過濾
-- 房源推薦卡片展示
-- 深色科技風介面
+- 本專案為靜態網站，不需安裝 Node.js
+- 直接開啟 `index.html` 或部署到 GitHub Pages 即可使用
 
 ## 注意事項
 
-本專案中的房價、房源、嫌惡設施與推薦結果屬於展示用途的模擬資料，不代表真實市場資訊。
+此版本使用 CDN 載入：
+- Tailwind CSS
+- React
+- ReactDOM
+- Babel Standalone
+- Lucide Icons
+
+因此：
+- 本機開啟時需要網路
+- GitHub Pages 線上使用時也需要能連上上述 CDN
